@@ -145,7 +145,7 @@ export function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 { name: "Chicken Biryani", price: "₹280", img: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?w=1000&auto=format&fit=crop" },
-                { name: "Kadai Paneer", price: "₹190", img: "https://images.unsplash.com/photo-1589301760014-d929f39ce9b0?w=1000&auto=format&fit=crop" }
+                { name: "Kadai Paneer", price: "₹190", img: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGFuZWVyfGVufDB8fDB8fHww" }
               ].map((dish, i) => (
                 <Reveal key={i} delay={i * 0.2} className="group relative overflow-hidden rounded-2xl aspect-[4/3] cursor-pointer">
                   <img src={dish.img} alt={dish.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />

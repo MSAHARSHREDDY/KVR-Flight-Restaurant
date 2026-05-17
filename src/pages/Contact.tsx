@@ -17,7 +17,7 @@ export const Contact = () => {
 
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl md:text-7xl font-bold text-yellow-400 mb-6">
-            Contact KVR Flight Restaurant
+            Contact KVR'S Flight Restaurant
           </h1>
 
           <p className="text-gray-300 text-xl max-w-3xl mx-auto">

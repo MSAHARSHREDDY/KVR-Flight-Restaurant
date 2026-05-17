@@ -3,6 +3,8 @@ import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { AuthModal } from "./components/AuthModal";
+import { CartDrawer } from "./components/CartDrawer";
 
 export function MainLayout() {
   const { pathname } = useLocation();
@@ -29,6 +31,8 @@ export function MainLayout() {
         </main>
         <Footer />
       </div>
+        <AuthModal />
+      <CartDrawer />
 
       {/* Decorative Grid Overlay */}
       <div className="pointer-events-none absolute inset-0 border-[12px] md:border-[24px] border-white/5 z-[100]"></div>

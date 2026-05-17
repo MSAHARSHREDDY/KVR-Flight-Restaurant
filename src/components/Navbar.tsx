@@ -1,21 +1,28 @@
 import { Link, useLocation } from "react-router-dom";
-import { Plane, Menu, X } from "lucide-react";
+import { Plane, Menu, X, ShoppingBag, User } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../utils/cn";
+import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "Menu", path: "/menu" },
+  { name: "Specials", path: "/specials" },
   { name: "About", path: "/about" },
+  
   { name: "Gallery", path: "/gallery" },
   { name: "Contact", path: "/contact" },
+  
 ];
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { totalItems, openCart } = useCart();
+  const { user, openAuthModal, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,12 +44,13 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2 group">
           <Plane className="w-8 h-8 text-gold-500 group-hover:rotate-12 transition-transform duration-300" />
           <span className="heading-serif font-bold text-xl tracking-widest text-white uppercase">
-            KVR Flight
+            KVR'S Flight
           </span>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
             return (
@@ -64,21 +72,67 @@ export function Navbar() {
               </Link>
             );
           })}
+        </nav>
+
+        {/* Actions */}
+        <div className="hidden md:flex items-center gap-4">
+          <button
+            onClick={user ? logout : openAuthModal}
+            className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-gold-400 transition-colors uppercase tracking-wide cursor-pointer"
+          >
+            <User className="w-5 h-5" />
+            <span className="sr-only lg:not-sr-only">
+              {user ? 'Logout' : 'SignIn'}
+            </span>
+          </button>
+
+          <button
+            onClick={openCart}
+            className="relative p-2 text-gray-300 hover:text-gold-400 transition-colors cursor-pointer"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            {totalItems > 0 && (
+              <span className="absolute top-0 right-0 w-4 h-4 bg-gold-500 text-dark-950 text-[10px] font-bold rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
           <Link
             to="/contact"
             className="px-6 py-2 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase text-sm tracking-wider"
           >
             Book Flight
           </Link>
-        </nav>
+        </div>
 
         {/* Mobile Nav Toggle */}
-        <button
-          className="md:hidden text-white cursor-pointer hover:text-gold-500 transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
+        {/* Mobile Nav Toggle */}
+        <div className="flex md:hidden items-center gap-4">
+          <button 
+            onClick={user ? logout : openAuthModal}
+            className="text-gray-300 hover:text-gold-400 transition-colors cursor-pointer"
+          >
+            <User className="w-5 h-5" />
+          </button>
+          
+          <button 
+            onClick={openCart}
+            className="relative p-1 text-gray-300 hover:text-gold-400 transition-colors cursor-pointer"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-gold-500 text-dark-950 text-[10px] font-bold rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+          <button
+            className="text-white cursor-pointer hover:text-gold-500 transition-colors ml-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
+           </div>
       </div>
 
       {/* Mobile Menu */}
@@ -103,13 +157,13 @@ export function Navbar() {
                 {link.name}
               </Link>
             ))}
-             <Link
-                to="/contact"
-                 onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-4 text-center px-6 py-3 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase tracking-wider cursor-pointer"
-              >
-                Book Flight
-              </Link>
+            <Link
+              to="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="mt-4 text-center px-6 py-3 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase tracking-wider cursor-pointer"
+            >
+              Book Flight
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>

@@ -37,7 +37,7 @@ export function About() {
           <Reveal direction="left" className="space-y-6">
             <h3 className="heading-serif text-4xl text-white mb-6">A Vision of Luxury Altitude</h3>
             <p className="text-gray-400 font-light leading-relaxed text-lg">
-              KVR Flight Restaurant was born from a simple yet ambitious idea: to capture the unparalleled romance, luxury, and exclusivity of first-class air travel, and ground it in an accessible dining experience.
+              KVR'S Flight Restaurant was born from a simple yet ambitious idea: to capture the unparalleled romance, luxury, and exclusivity of first-class air travel, and ground it in an accessible dining experience.
             </p>
             <p className="text-gray-400 font-light leading-relaxed text-lg">
               Our founders, a former aviation engineer and a Michelin-starred chef, collaborated to design an environment where every detail—from the curvature of the cabin walls to the acoustic dampening algorithms—mimics cruising at 35,000 feet.

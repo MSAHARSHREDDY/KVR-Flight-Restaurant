@@ -9,7 +9,7 @@ export function Footer() {
            <Link to="/" className="flex items-center gap-2 group mb-6">
             <Plane className="w-8 h-8 text-gold-500" />
             <span className="heading-serif font-bold text-2xl tracking-widest text-white uppercase">
-              KVR Flight
+              KVR'S Flight
             </span>
           </Link>
           <p className="text-gray-400 max-w-sm leading-relaxed mb-8">
