@@ -49,6 +49,10 @@
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
+
 import { MainLayout } from "./Layout";
 import { Home } from "./pages/Home";
 import { Menu } from "./pages/Menu";
@@ -75,17 +79,50 @@ export default function App() {
       <AuthProvider>
         <CartProvider>
           <BrowserRouter>
+
+            {/* Toastify Container */}
+            <ToastContainer
+              position="top-right"
+              autoClose={3000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              pauseOnHover
+              draggable
+              theme="dark"
+            />
+
             <Routes>
               <Route path="/" element={<MainLayout />}>
                 <Route index element={<Home />} />
-                <Route path="menu" element={<Menu />} />
-                <Route path="specials" element={<Specials />} />
-                <Route path="about" element={<About />} />
 
-                <Route path="gallery" element={<Gallery />} />
-                <Route path="contact" element={<Contact />} />
+                <Route
+                  path="menu"
+                  element={<Menu />}
+                />
+
+                <Route
+                  path="specials"
+                  element={<Specials />}
+                />
+
+                <Route
+                  path="about"
+                  element={<About />}
+                />
+
+                <Route
+                  path="gallery"
+                  element={<Gallery />}
+                />
+
+                <Route
+                  path="contact"
+                  element={<Contact />}
+                />
               </Route>
             </Routes>
+
           </BrowserRouter>
         </CartProvider>
       </AuthProvider>

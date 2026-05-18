@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Plane, Menu, X, ShoppingBag, User } from "lucide-react";
+import { Plane, Menu, X, ShoppingBag, User, Flame } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "../utils/cn";
@@ -11,10 +11,8 @@ const navLinks = [
   { name: "Menu", path: "/menu" },
   { name: "Specials", path: "/specials" },
   { name: "About", path: "/about" },
-  
   { name: "Gallery", path: "/gallery" },
   { name: "Contact", path: "/contact" },
-  
 ];
 
 export function Navbar() {
@@ -44,24 +42,25 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2 group">
           <Plane className="w-8 h-8 text-gold-500 group-hover:rotate-12 transition-transform duration-300" />
           <span className="heading-serif font-bold text-xl tracking-widest text-white uppercase">
-            KVR'S Flight
+            KVR Flight
           </span>
         </Link>
 
         {/* Desktop Nav */}
-
         <nav className="hidden md:flex items-center gap-6 lg:gap-8">
           {navLinks.map((link) => {
             const isActive = location.pathname === link.path;
+            const isSpecial = link.name === "Specials";
             return (
               <Link
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  "text-sm font-medium tracking-wide uppercase transition-colors hover:text-gold-400 relative",
-                  isActive ? "text-gold-500" : "text-gray-300"
+                  "text-sm font-bold tracking-wide uppercase transition-colors relative flex items-center gap-1.5",
+                  isActive ? "text-gold-500" : (isSpecial ? "text-orange-500 hover:text-orange-400 drop-shadow-[0_0_8px_rgba(249,115,22,0.5)]" : "text-gray-300 hover:text-gold-400")
                 )}
               >
+                {isSpecial && <Flame className="w-4 h-4 animate-pulse" />}
                 {link.name}
                 {isActive && (
                   <motion.div
@@ -76,7 +75,7 @@ export function Navbar() {
 
         {/* Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <button
+          <button 
             onClick={user ? logout : openAuthModal}
             className="flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-gold-400 transition-colors uppercase tracking-wide cursor-pointer"
           >
@@ -86,7 +85,7 @@ export function Navbar() {
             </span>
           </button>
 
-          <button
+          <button 
             onClick={openCart}
             className="relative p-2 text-gray-300 hover:text-gold-400 transition-colors cursor-pointer"
           >
@@ -97,15 +96,15 @@ export function Navbar() {
               </span>
             )}
           </button>
+
           <Link
             to="/contact"
-            className="px-6 py-2 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase text-sm tracking-wider"
+            className="ml-2 px-5 py-2 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase text-sm tracking-wider"
           >
             Book Flight
           </Link>
         </div>
 
-        {/* Mobile Nav Toggle */}
         {/* Mobile Nav Toggle */}
         <div className="flex md:hidden items-center gap-4">
           <button 
@@ -126,13 +125,14 @@ export function Navbar() {
               </span>
             )}
           </button>
+
           <button
             className="text-white cursor-pointer hover:text-gold-500 transition-colors ml-2"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-          {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-           </div>
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -144,26 +144,30 @@ export function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full inset-x-0 bg-[#060b19] border-b border-white/10 p-6 flex flex-col gap-4 md:hidden shadow-2xl z-[60]"
           >
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={cn(
-                  "text-lg font-medium tracking-wide uppercase transition-colors hover:text-gold-400 cursor-pointer block py-2",
-                  location.pathname === link.path ? "text-gold-500" : "text-gray-300"
-                )}
+            {navLinks.map((link) => {
+              const isSpecial = link.name === "Specials";
+              return (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={cn(
+                    "text-lg font-bold tracking-wide uppercase transition-colors cursor-pointer flex items-center gap-2 py-2",
+                    location.pathname === link.path ? "text-gold-500" : (isSpecial ? "text-orange-500 drop-shadow-[0_0_8px_rgba(249,115,22,0.5)]" : "text-gray-300 hover:text-gold-400")
+                  )}
+                >
+                  {isSpecial && <Flame className="w-5 h-5 animate-pulse" />}
+                  {link.name}
+                </Link>
+              );
+            })}
+             <Link
+                to="/contact"
+                 onClick={() => setIsMobileMenuOpen(false)}
+                className="mt-4 text-center px-6 py-3 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase tracking-wider cursor-pointer"
               >
-                {link.name}
+                Book Flight
               </Link>
-            ))}
-            <Link
-              to="/contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="mt-4 text-center px-6 py-3 border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-dark-950 transition-all font-medium uppercase tracking-wider cursor-pointer"
-            >
-              Book Flight
-            </Link>
           </motion.div>
         )}
       </AnimatePresence>
