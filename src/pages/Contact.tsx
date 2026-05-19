@@ -46,7 +46,7 @@ export const Contact = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-2">Email</h3>
                 <a href="mailto:reservations@kvrflight.com" className="text-gray-300 hover:text-yellow-400">
-                  reservations@kvrflight.com
+                  reservations@kvr'sflight.com
                 </a>
               </div>
             </div>

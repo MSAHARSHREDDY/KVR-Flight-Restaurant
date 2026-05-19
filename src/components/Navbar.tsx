@@ -42,7 +42,7 @@ export function Navbar() {
         <Link to="/" className="flex items-center gap-2 group">
           <Plane className="w-8 h-8 text-gold-500 group-hover:rotate-12 transition-transform duration-300" />
           <span className="heading-serif font-bold text-xl tracking-widest text-white uppercase">
-            KVR Flight
+            KVR'S Flight
           </span>
         </Link>
 
